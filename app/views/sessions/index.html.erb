@@ -1,6 +1,6 @@
 <h1> Welcome to Ryde </h1>
-<%= link_to 'Ryder Login', new_session_path %>
+<%= link_to 'Login', new_session_path %>
 <br>
-Pilot Login
+<%= link_to 'Ryder Sign-up', new_user_path %>
 <br>
-<%= link_to 'Sign-up', new_user_path %>
+<%= link_to 'Pilot Sign-up', new_user_path(pilot:true) %>

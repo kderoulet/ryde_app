@@ -1,6 +1,6 @@
 class RydesController < ApplicationController
     def index
-        @rydes = Ryde.all
+        @rydes = Ryde.all.order("created_at DESC")
     end
 
     def new
@@ -18,6 +18,7 @@ class RydesController < ApplicationController
     end
 
     def show
+        @ryde = Ryde.find(params[:id])
     end
 
     def edit
@@ -33,8 +34,26 @@ class RydesController < ApplicationController
         end
     end
 
+    def add
+        @ryde = Ryde.find(params[:id])
+        if @ryde.update_attributes(pilot_id: current_user.id)
+            redirect_to user_path
+        else
+            render
+        end
+    end
+
+    def finish
+        @ryde = Ryde.where(pilot_id: current_user.id).first
+        if @ryde.update_attributes(finished: true)
+            redirect_to user_path
+        else
+            render
+        end
+    end
+
 private
     def ryde_params
-        params.require(:ryde).permit(:starting_location, :ending_location)
+        params.require(:ryde).permit(:starting_location, :ending_location, :pilot_id)
     end
 end

@@ -2,15 +2,24 @@ class UsersController < ApplicationController
     def new
         @user = User.new
     end
+
     def create
         @user = User.new(user_params)
+        if params[:pilot]
+            @user.pilot = true
+        end
         if @user.save
             session[:user_id] = @user.id
-            redirect_to new_ryde_path
+            if @user.pilot
+                redirect_to rydes_path
+            else 
+                redirect_to new_ryde_path
+            end
         else
             render :new
         end
     end
+
     def show
         @user = User.find_by(email: current_user.email)
     end
@@ -29,6 +38,6 @@ class UsersController < ApplicationController
 
     private 
     def user_params
-        params.require(:user).permit(:email, :first_name, :last_name, :image, :password, :password_confirmation)
+        params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :image, :pilot )
     end
 end

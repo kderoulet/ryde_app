@@ -1,32 +1,75 @@
 Your Profile <%= link_to 'Edit', edit_user_path %>
 <br>
+<% if @user.pilot %>
+    <h3> you are a pilot </h3>
+    <%= link_to 'Available Rydes', rydes_path %>
+    <br>
+<% end %>
+<%= image_tag @user.image.url, size: '100x100' %>
+<br>
 <%= @user.email %>
 <br> 
 <%= @user.first_name %>
 <%= @user.last_name %> 
-<br> 
-Your ryde history: 
-<% Ryde.all.each do |ryde| %>
-    <% if ryde.user_id == current_user.id %>
-        <% unless ryde.finished %>
-                <h3> Your active ryde </h3>
+<br><br><br>
+<% if @user.pilot %>
+    <% Ryde.all.order("created_at DESC").each do |ryde| %> 
+        <% if ryde.pilot_id.to_i == @user.id %>
+            <% unless ryde.finished %>
                 <div>
-                <%= ryde.starting_location %>
-                <br>
-                <%= ryde.ending_location %>
-                <br> 
-                $15000000
-            </div>
-        <% else %>
-            <div>
-                date / time
-                <br>
-                <%= ryde.starting_location %>
-                <br>
-                <%= ryde.ending_location %>
-                <br> 
-                $15000000
-            </div>
+                    <h3> Your active Ryde </h3>
+                    <%= image_tag User.find(ryde.user_id).image.url, size: '35x35' %>
+                    <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
+                    <br>
+                    <%= ryde.starting_location %>
+                    <br>
+                    <%= ryde.ending_location %>
+                    <br> 
+                    $15000000
+                    <br>
+                    <%= form_tag user_path do%>
+                        <%= submit_tag 'Finish Ryde' %> 
+                    <% end %>
+                </div>
+            <% else %>
+                <div>
+                    finished on date
+                    <br>
+                    <%= image_tag User.find(ryde.user_id).image.url, size: '35x35' %>
+                    <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
+                    <br>
+                    <%= ryde.starting_location %>
+                    <br>
+                    <%= ryde.ending_location %>
+                    <br> 
+                    $15000000
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+<% else %>
+    <% Ryde.all.order("created_at DESC").each do |ryde| %>
+        <% if ryde.user_id.to_i == current_user.id %>
+            <% unless ryde.finished %>
+                    <h3> Your active ryde </h3>
+                    <div>
+                    <%= ryde.starting_location %>
+                    <br>
+                    <%= ryde.ending_location %>
+                    <br> 
+                    $15000000
+                </div>
+            <% else %>
+                <div>
+                    date / time
+                    <br>
+                    <%= ryde.starting_location %>
+                    <br>
+                    <%= ryde.ending_location %>
+                    <br> 
+                    $15000000
+                </div>
+            <% end %>
         <% end %>
     <% end %>
 <% end %>
