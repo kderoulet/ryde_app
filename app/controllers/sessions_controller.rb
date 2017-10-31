@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
     def create 
         user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
-            sessions[:user_id] = user.id
-            redirect_to user_path
+            session[:user_id] = user.id
+            redirect_to new_ryde_path
         else
             flash.now.alert = 'Invalid Login'
             render :new

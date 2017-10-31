@@ -1,0 +1,9 @@
+<%= form_for @ryde do |f| %>
+    <%= f.label :starting_location %>
+    <%= f.text_field :starting_location %>
+    <br>
+    <%= f.label :ending_location %>
+    <%= f.text_field :ending_location %>
+    <br>
+    <%= f.submit 'Request Ryde' %>
+<% end %>

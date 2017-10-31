@@ -1,0 +1,29 @@
+<% unless current_user.pilot %>
+    <h1> My Rydes </h1>
+    <% @rydes.each do |ryde| %>
+        <% if ryde.user_id == current_user.id %>
+        <div>
+            <br>
+            <%= ryde.starting_location %>
+            <br>
+            <%= ryde.ending_location %>
+            <br>
+            <% unless ryde.finished %>
+                <%= link_to "Edit", edit_ryde_path(id: ryde.id) %>
+            <% end %>
+        </div>
+        <% end %>
+    <% end %>
+<% else %> 
+    <h1> Available Rydes </h1>
+    <% @rydes.each do |ryde| %>
+        <div>
+            <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[1] %>.
+            <br>
+            <%= ryde.starting_location %>
+            <br>
+            <%= ryde.ending_location %>
+            <br>
+        </div>
+    <% end %>
+<% end %>

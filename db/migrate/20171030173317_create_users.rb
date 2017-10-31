@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :password_digest
       t.attachment :image
-      t.boolean :pilot
+      t.boolean :pilot, default: false
 
       t.timestamps
     end

@@ -1,0 +1,32 @@
+Your Profile <%= link_to 'Edit', edit_user_path %>
+<br>
+<%= @user.email %>
+<br> 
+<%= @user.first_name %>
+<%= @user.last_name %> 
+<br> 
+Your ryde history: 
+<% Ryde.all.each do |ryde| %>
+    <% if ryde.user_id == current_user.id %>
+        <% unless ryde.finished %>
+                <h3> Your active ryde </h3>
+                <div>
+                <%= ryde.starting_location %>
+                <br>
+                <%= ryde.ending_location %>
+                <br> 
+                $15000000
+            </div>
+        <% else %>
+            <div>
+                date / time
+                <br>
+                <%= ryde.starting_location %>
+                <br>
+                <%= ryde.ending_location %>
+                <br> 
+                $15000000
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
