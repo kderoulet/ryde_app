@@ -44,7 +44,7 @@ class RydesController < ApplicationController
     end
 
     def finish
-        @ryde = Ryde.where(pilot_id: current_user.id).first
+        @ryde = Ryde.where(pilot_id: current_user.id).order("created_at DESC").first
         if @ryde.update_attributes(finished: true)
             redirect_to user_path
         else

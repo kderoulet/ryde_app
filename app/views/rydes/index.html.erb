@@ -10,6 +10,8 @@
             <br>
             <% unless ryde.finished %>
                 <%= link_to "Edit", edit_ryde_path(id: ryde.id) %>
+            <% else %>
+                Finished on: <%= ryde.updated_at %>
             <% end %>
         </div>
         <% end %>

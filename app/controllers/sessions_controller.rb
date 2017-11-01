@@ -23,7 +23,6 @@ class SessionsController < ApplicationController
                 end
             end
         else
-            flash.now.alert = 'Invalid Login'
             render :new
         end
     end
