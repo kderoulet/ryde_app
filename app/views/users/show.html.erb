@@ -1,18 +1,14 @@
 <div class="profile-header">
 MY PROFILE
 <br>
-<% if @user.pilot %>
-    <h3> you are a pilot </h3>
-    <%= link_to 'Available Rydes', rydes_path %>
-    <br>
-<% end %>
 <%= image_tag @user.image.url, size: "150x150" %>
 <br>
 <%= @user.email %>
 <br> 
 <%= link_to 'Edit Profile', edit_user_path %>
 </div>
-<br><br><br>
+<br><br>
+<div class="ryde">
 <% if @user.pilot %>
     <% Ryde.all.order("created_at DESC").each do |ryde| %> 
         <% if ryde.pilot_id.to_i == @user.id %>
@@ -80,3 +76,4 @@ MY PROFILE
         <% end %>
     <% end %>
 <% end %>
+</div>

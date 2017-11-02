@@ -1,5 +1,5 @@
 <h1> Edit Profile </h1>
-Email: &nbsp; <%= current_user.email %><br>
+Email: <%= current_user.email %><br>
 <%= form_for current_user do |f| %>
 <%= f.text_field :first_name, placeholder: 'First Name' %>
     <br>
@@ -7,12 +7,11 @@ Email: &nbsp; <%= current_user.email %><br>
     <br>
     <%= f.text_field :email, placeholder: 'Email' %>
     <br>
-    <%= f.password_field :password, placeholder: 'Password' required: true%>
+    <%= f.password_field :password, placeholder: 'Password' %>
     <br> 
-    <%= f.password_field :password_confirmation, placeholder: 'Password' required: true%>
+    <%= f.password_field :password_confirmation, placeholder: 'Password' %>
     <br>
-    <%= f.label :profile_image %>
-    <%= f.file_field :image %>
-    <br>
+    <%= f.file_field :image, placeholder: "Profile Image" %>
+    <br><br>
     <%= f.submit 'Edit Profile' %>
 <% end %>

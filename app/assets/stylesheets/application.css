@@ -14,17 +14,23 @@
  *= require_self
  */
 
+
  body {
-    font-family: 'Varela Round', sans-serif;    
+    font-family: 'Varela Round', sans-serif;   
+    font-size: 20px; 
  }
 
  a {
-     color: #dddddd;
+     color: #000000;
  }
 
  img {
      border-radius: 50%;
      margin: 0 auto;
+ }
+
+ button:hover {
+     cursor: pointer;
  }
 
  .login-page {
@@ -38,12 +44,10 @@
  }
 
  .rydes-page {
-     margin: 0 auto;
      text-align: center;
  }
 
  .ryde {
-     margin: 0 25%;
      text-align: left;
  }
 
@@ -66,4 +70,23 @@
 
 .col-right {
     text-align: right;
+}
+
+.row {
+    border-bottom: 1px solid black;
+}
+
+@media(min-width: 768px) {
+    body {
+        font-size: 20px;
+    }
+    h1 {
+        font-size: 25px;
+    }
+    .ryde {
+        margin: 0 25%;
+    }
+    .rydes-page {
+        margin: 0 auto;
+    }
 }
