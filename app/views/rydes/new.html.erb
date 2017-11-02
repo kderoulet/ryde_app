@@ -1,8 +1,11 @@
+<div class="container-fluid new-ryde">
 <%= form_for @ryde do |f| %>
-    <%= f.collection_select(:starting_location, Destination.all, :name, :name, {prompt: "Where do you want to go?"}, {include_blank: true, required: true}) %>
+    <h3> WHERE WOULD YOU LIKE TO START? </h3>
+    <%= f.collection_select(:starting_location, Destination.all, :name, :name, {prompt: "Select a launch site"}, {include_blank: true, required: true}) %>
     <br>
-    <%= f.collection_select(:ending_location, Destination.all, :name, :name, {prompt: "Where are you launching from?"}, {include_blank: true, required: true}) %>
-    <br>
+    <h3> WHERE WOULD YOU LIKE TO RYDE? </h3>
+    <%= f.collection_select(:ending_location, Destination.all, :name, :name, {prompt: "Select a destination"}, {include_blank: true, required: true}) %>
+    <br><br>
     <%= f.submit 'Request Ryde' %>
 <% end %>
-
+</div>

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+    before_action :authorize_pilot, except: [:destroy] 
+    before_action :authorize_ryder, except: [:destroy] 
     def index
     end
     

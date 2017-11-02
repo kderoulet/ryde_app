@@ -1,22 +1,22 @@
 <h1> Create Account </h1>
 <% path = params.has_key?(:pilot) ? users_path(pilot: true) : users_path %>
 <%= form_for @user, url: path do |f| %>
-    <%= f.text_field :first_name, placeholder: 'First Name' %>
+    <%= f.text_field :first_name, placeholder: 'First Name', required: true %>
     <br>
-    <%= f.text_field :last_name, placeholder: 'Last Name' %>
+    <%= f.text_field :last_name, placeholder: 'Last Name', required: true %>
     <br>
-    <%= f.text_field :email, placeholder: 'Email' %>
+    <%= f.text_field :email, placeholder: 'Email', required: true %>
     <br>
-    <%= f.password_field :password, placeholder: 'Password' %>
+    <%= f.password_field :password, placeholder: 'Password', required: true %>
     <br> 
-    <%= f.password_field :password_confirmation, placeholder: 'Password' %>
+    <%= f.password_field :password_confirmation, placeholder: 'Password', required: true %>
     <br>
     <%= f.label :image %>
-    <%= f.file_field :image %>
+    <%= f.file_field :image, required: true%>
     <br>
     <% if params[:pilot] %>
         <%= f.label :upload_license %>
-        <%= f.file_field :license %>
+        <%= f.file_field :license, required: true %>
         <br>
         <% @user.pilot = true %>    
     <% end %>

@@ -1,13 +1,10 @@
-<div class="container">
+<div class="container-fluid login-page">
     <h1> Welcome to Ryde </h1>
-    <button class="btn btn-lg btn-primary">
-    Login
-    </button>
-    <br>
-    <%= link_to 'Login', new_session_path %>
-    <br>
-    <%= link_to 'Ryder Sign-up', new_user_path %>
-    <br>
-    <%= link_to 'Pilot Sign-up', new_user_path(pilot:true) %>
+    <br><br>
+    <%= link_to "<button class='btn btn-lg'>LOG IN</button>".html_safe, new_session_path %>
+    <br><br>
+    <%= link_to "<button class='btn btn-lg'>RYDER SIGN-UP</button>".html_safe, new_user_path %>
+    <br><br>
+    <%= link_to "<button class='btn btn-lg'>PILOT SIGN-UP</button>".html_safe, new_user_path(pilot:true) %>
 </div>
 

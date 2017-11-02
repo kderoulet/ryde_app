@@ -1,45 +1,64 @@
+<div class="container-fluid rydes-page">
 <% unless current_user.pilot %>
-    <h1> My Rydes </h1>
+    <h3> MY RYDES </h3>
     <br>
-    <% if current_user.rydes.order('created_at DESC').first.finished %>
-        <%= link_to "Request a Ryde", new_ryde_path %>
+    <% if current_user.rydes.length > 0 %>
+        <% if current_user.rydes.order('created_at DESC').first.finished %>
+            <%= link_to "<button class='btn btn-lg'>REQUEST A RYDE</button>".html_safe, new_ryde_path %>
+        <% end %>
+    <% else %>
+        It looks like you have no rydes! <%= link_to "Request a Ryde", new_ryde_path %>
     <% end %>
     <% @rydes.each do |ryde| %>
         <% if ryde.user_id == current_user.id %>
         <div>
-            <br>
-            From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
-            <br>
-            To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
-            <br>
-            <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
-            <br>
-            <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
-            <br>
-            <% unless ryde.finished %>
-                <%= link_to "Edit", edit_ryde_path(id: ryde.id) %> 
-                &nbsp;&nbsp;||&nbsp;&nbsp;
-                <%= link_to "Delete", ryde_path(id: ryde.id), method: :delete %>
-            <% else %>
-                Ryde Finished: <%= ryde.updated_at.strftime("%B %d, %Y") %>
+            <% if ryde.pilot_id %>
+                <br>
+                <%= image_tag User.find(ryde.pilot_id).image.url, size: '50x50' %>
+                <br>
+                <%= User.find(ryde.pilot_id).first_name %>
+                <%= User.find(ryde.pilot_id).last_name[0] %>. accepted this ryde.
+                <br>
             <% end %>
+            <div class="ryde">
+                From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+                <br>
+                To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                <br>
+                <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+                <br>
+                <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
+                <br>
+                <% unless ryde.finished %>
+                    <%= link_to "Edit", edit_ryde_path(id: ryde.id) %> 
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    <%= link_to "Delete", ryde_path(id: ryde.id), method: :delete %>
+                <% else %>
+                    Ryde Finished: <%= ryde.updated_at.strftime("%B %d, %Y") %>
+                <% end %>
+            </div>
         </div>
         <% end %>
     <% end %>
 <% else %> 
     <h1> Available Rydes </h1>
+    <br>
     <% @rydes.each do |ryde| %>
         <% unless ryde.pilot_id %>
             <div>
-                <%= image_tag User.find(ryde.user_id).image.url, size: '35x35' %>
+                <%= image_tag User.find(ryde.user_id).image.url, size: '50x50' %>
+                <br>
                 <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
                 <br>
-                From: <%= ryde.starting_location %>
-                <br>
-                To: <%= ryde.ending_location %>
-                <br>
-                <%= link_to "View Ryde", ryde_path(id: ryde.id) %>
+                <div class="ryde">
+                    From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+                    <br>
+                    To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                    <br>
+                    <%= link_to "View Ryde", ryde_path(id: ryde.id) %>
+                </div class="ryde">
             </div>
         <% end %>
     <% end %>
 <% end %>
+</div>

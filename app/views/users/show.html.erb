@@ -1,23 +1,24 @@
-Your Profile <%= link_to 'Edit', edit_user_path %>
+<div class="profile-header">
+MY PROFILE
 <br>
 <% if @user.pilot %>
     <h3> you are a pilot </h3>
     <%= link_to 'Available Rydes', rydes_path %>
     <br>
 <% end %>
-<%= image_tag @user.image.url, size: "100x100" %>
+<%= image_tag @user.image.url, size: "150x150" %>
 <br>
 <%= @user.email %>
 <br> 
-<%= @user.first_name %>
-<%= @user.last_name %> 
+<%= link_to 'Edit Profile', edit_user_path %>
+</div>
 <br><br><br>
 <% if @user.pilot %>
     <% Ryde.all.order("created_at DESC").each do |ryde| %> 
         <% if ryde.pilot_id.to_i == @user.id %>
             <% unless ryde.finished %>
                 <div>
-                    <h3> Your active Ryde </h3>
+                    Active Ride <br>
                     <%= image_tag User.find(ryde.user_id).image.url, size: '35x35' %>
                     <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
                     <br>
@@ -52,7 +53,7 @@ Your Profile <%= link_to 'Edit', edit_user_path %>
         <% if ryde.user_id.to_i == current_user.id %>
             <% unless ryde.finished %>
                     <div>
-                        <h3> Your active ryde: </h3>
+                        Active Ryde <br>
                         From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
                         <br>
                         To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
@@ -73,7 +74,7 @@ Your Profile <%= link_to 'Edit', edit_user_path %>
                     <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
                     <br>
                     <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
-                    <br>
+                    <br><br>
                 </div>
             <% end %>
         <% end %>

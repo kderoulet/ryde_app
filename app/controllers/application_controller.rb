@@ -20,6 +20,19 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize
-    redirect_to login_path, alert: 'Not authorized - you must be logged in!' if current_user.nil?
+    redirect_to root_path if current_user.nil?
   end
+
+  def authorize_pilot
+    redirect_to rydes_path unless current_user.pilot? if current_user
+  end
+
+  def authorize_ryder
+    redirect_to rydes_path if current_user.pilot? if current_user
+  end
+
+  def no_more_rydes
+    redirect_to rydes_path unless current_user.rydes.order('created_at DESC').first.finished if current_user.rydes.length > 0
+  end
+
 end

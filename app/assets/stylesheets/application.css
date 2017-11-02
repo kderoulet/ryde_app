@@ -14,13 +14,56 @@
  *= require_self
  */
 
- .btn-primary {
-     background-color: #ADD8F9;
-     border: 1px solid #ADD8F9;
+ body {
+    font-family: 'Varela Round', sans-serif;    
  }
- .btn-primary:hover {
-    background-color: #ADD8F9;
+
+ a {
+     color: #dddddd;
  }
- .btn-primate:click {
-     background-color: #ADD8F9;
+
+ img {
+     border-radius: 50%;
+     margin: 0 auto;
  }
+
+ .login-page {
+     margin: 0 auto;
+     text-align: center;
+ }
+
+ .new-ryde {
+     margin: 0 auto;
+     text-align: center;
+ }
+
+ .rydes-page {
+     margin: 0 auto;
+     text-align: center;
+ }
+
+ .ryde {
+     margin: 0 25%;
+     text-align: left;
+ }
+
+ .profile-header {
+     margin: 0 auto;
+     text-align: center;
+ }
+
+.btn {
+    width: 200px;
+}
+
+.col {
+    text-align: center;
+}
+
+.col-left {
+    text-align: left;
+}
+
+.col-right {
+    text-align: right;
+}

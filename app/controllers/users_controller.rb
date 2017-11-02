@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+    before_action :authorize, except: [:new, :create]
+    before_action :authorize_pilot, only: [:new]
+    before_action :authorize_ryder, only: [:new]
     def new
         @user = User.new
     end
@@ -29,7 +32,7 @@ class UsersController < ApplicationController
 
     def update
         if current_user.update_attributes(user_params)
-            redirect_to user_path
+            redirect_to user_path 
         else
             render :edit
         end

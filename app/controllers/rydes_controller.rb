@@ -1,4 +1,8 @@
 class RydesController < ApplicationController
+    before_action :authorize
+    before_action :authorize_pilot, only: [:show]
+    before_action :authorize_ryder, only: [:edit, :new]
+    before_action :no_more_rydes, only: [:new]
     def index
         @rydes = Ryde.all.order("created_at DESC")
     end

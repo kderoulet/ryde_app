@@ -1,16 +1,21 @@
-<h1> Ryde Details </h1>
-<%= image_tag User.find(@ryde.user_id).image.url, size: '35x35' %>
-<br>
-<%= User.find(@ryde.user_id).first_name %> <%= User.find(@ryde.user_id).last_name[0] %>.
-<br>
-From: <%= @ryde.starting_location %>
-<br>
-To: <%= @ryde.ending_location %> 
-<br>
-$14000000
-<br> 
-<%= form_tag ryde_path do%>
-    <%= submit_tag 'Accept' %> 
-<% end %>
-&nbsp; &nbsp; 
-<%= link_to 'Back', rydes_path %>
+<div class="rydes-page">
+    <h1> Ryde Details </h1>
+    <%= image_tag User.find(@ryde.user_id).image.url, size: '50x50' %>
+    <br>
+    <%= User.find(@ryde.user_id).first_name %> <%= User.find(@ryde.user_id).last_name[0] %>.
+    <br>
+    <div class="ryde">
+        From: <%= @ryde.starting_location %>, <%= Destination.find_by(name: @ryde.starting_location).location %>
+        <br>
+        To: <%= @ryde.ending_location %>, <%= Destination.find_by(name: @ryde.ending_location).location %>
+        <br>
+        <%= number_to_currency((((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+        <br>
+        <%= ((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 160).to_i %> days
+        <br>
+    </div> 
+    <%= form_tag ryde_path do%>
+        <%= submit_tag 'Accept' %> 
+    <% end %> 
+    <%= link_to 'Back', rydes_path %>
+</div>
