@@ -28,10 +28,15 @@ class RydesController < ApplicationController
     def update
         @ryde = Ryde.find(params[:id])
         if @ryde.update_attributes(ryde_params)
-            redirect_to user_path
+            redirect_to rydes_path
         else
             render :edit
         end
+    end
+
+    def destroy
+        @ryde = Ryde.find(params[:id]).destroy
+        redirect_to rydes_path
     end
 
     def add

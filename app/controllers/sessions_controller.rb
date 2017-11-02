@@ -10,11 +10,7 @@ class SessionsController < ApplicationController
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             if user.pilot
-                unless Ryde.where(pilot_id: current_user.id).order("created_at DESC").first.finished
-                    redirect_to user_path(id: current_user.id)
-                else
-                    redirect_to rydes_path
-                end
+                redirect_to rydes_path
             else
                 unless Ryde.where(user_id: current_user.id).order("created_at DESC").first.finished
                     redirect_to rydes_path
@@ -22,6 +18,7 @@ class SessionsController < ApplicationController
                     redirect_to new_ryde_path
                 end
             end
+
         else
             render :new
         end

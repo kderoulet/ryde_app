@@ -1,17 +1,27 @@
 <% unless current_user.pilot %>
     <h1> My Rydes </h1>
+    <br>
+    <% if current_user.rydes.order('created_at DESC').first.finished %>
+        <%= link_to "Request a Ryde", new_ryde_path %>
+    <% end %>
     <% @rydes.each do |ryde| %>
         <% if ryde.user_id == current_user.id %>
         <div>
             <br>
-            From: <%= ryde.starting_location %>
+            From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
             <br>
-            To: <%= ryde.ending_location %>
+            To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+            <br>
+            <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+            <br>
+            <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
             <br>
             <% unless ryde.finished %>
-                <%= link_to "Edit", edit_ryde_path(id: ryde.id) %>
+                <%= link_to "Edit", edit_ryde_path(id: ryde.id) %> 
+                &nbsp;&nbsp;||&nbsp;&nbsp;
+                <%= link_to "Delete", ryde_path(id: ryde.id), method: :delete %>
             <% else %>
-                Finished on: <%= ryde.updated_at %>
+                Ryde Finished: <%= ryde.updated_at.strftime("%B %d, %Y") %>
             <% end %>
         </div>
         <% end %>

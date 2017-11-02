@@ -5,7 +5,7 @@ Your Profile <%= link_to 'Edit', edit_user_path %>
     <%= link_to 'Available Rydes', rydes_path %>
     <br>
 <% end %>
-<%= image_tag @user.image.url, size: '100x100' %>
+<%= image_tag @user.image.url, size: "100x100" %>
 <br>
 <%= @user.email %>
 <br> 
@@ -51,23 +51,29 @@ Your Profile <%= link_to 'Edit', edit_user_path %>
     <% Ryde.all.order("created_at DESC").each do |ryde| %>
         <% if ryde.user_id.to_i == current_user.id %>
             <% unless ryde.finished %>
-                    <h3> Your active ryde </h3>
                     <div>
-                    <%= ryde.starting_location %>
-                    <br>
-                    <%= ryde.ending_location %>
-                    <br> 
-                    $15000000
-                </div>
+                        <h3> Your active ryde: </h3>
+                        From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+                        <br>
+                        To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                        <br>
+                        <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+                        <br>
+                        <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
+                        <br><br>
+                    </div>
             <% else %>
                 <div>
-                    date / time
+                    Ryde Finished: <%= ryde.updated_at.strftime("%B %d, %Y") %>
                     <br>
-                    <%= ryde.starting_location %>
+                    From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
                     <br>
-                    <%= ryde.ending_location %>
-                    <br> 
-                    $15000000
+                    To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                    <br>
+                    <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+                    <br>
+                    <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
+                    <br>
                 </div>
             <% end %>
         <% end %>

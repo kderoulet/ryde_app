@@ -1,9 +1,8 @@
 <%= form_for @ryde do |f| %>
-    <%= f.label :starting_location %>
-    <%= f.text_field :starting_location %>
+    <%= f.collection_select(:starting_location, Destination.all, :name, :name, {prompt: "Starting Location"}, {include_blank: true, required: true}) %>
     <br>
-    <%= f.label :ending_location %>
-    <%= f.text_field :ending_location %>
+    <%= f.collection_select(:ending_location, Destination.all, :name, :name, {prompt: "Ending Location"}, {include_blank: true, required: true}) %>
     <br>
     <%= f.submit 'Edit Ryde Request' %>
+    <br>
 <% end %>
