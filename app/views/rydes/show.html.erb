@@ -14,7 +14,11 @@
         <strong>Time:</strong> <%= ((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 160).to_i %> days
         <br>
     </div>
-    <% if Ryde.all.where(pilot_id: current_user.id).order('updated_at DESC').first.finished %>
+    <% if Ryde.all.where(pilot_id: current_user.id).first.nil? %>
+        <%= form_tag ryde_path do%>
+            <%= submit_tag 'Accept' %> 
+        <% end %> 
+    <% elsif Ryde.all.where(pilot_id: current_user.id).order('updated_at DESC').first.finished %>
         <%= form_tag ryde_path do%>
             <%= submit_tag 'Accept' %> 
         <% end %> 
