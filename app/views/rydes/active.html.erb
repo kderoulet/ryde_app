@@ -13,10 +13,8 @@
                 <strong>Price:</strong> <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
                 <br>
                 <strong>Time:</strong> <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
-                <br><br>
-                <%= form_tag users_path do%>
-                    <%= submit_tag 'Finish Ryde' %> 
-                <% end %>
+                <br>
+                <%= link_to "Finish", rydes_active_path, method: :finish %>
             </div>
         <% end %>
     <% end %>

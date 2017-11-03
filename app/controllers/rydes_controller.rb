@@ -49,16 +49,16 @@ class RydesController < ApplicationController
     def add
         @ryde = Ryde.find(params[:id])
         if @ryde.update_attributes(pilot_id: current_user.id)
-            redirect_to user_path
+            redirect_to rydes_active_path
         else
             render
         end
     end
 
     def finish
-        @ryde = Ryde.where(pilot_id: current_user.id).order("created_at DESC").first
+        @ryde = Ryde.where(pilot_id: current_user.id).order("updated_at DESC").first
         if @ryde.update_attributes(finished: true)
-            redirect_to user_path
+            redirect_to rydes_path
         else
             render
         end

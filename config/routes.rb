@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  post '/rydes/active', to: 'rydes#finish'  
   post '/rydes/:id', to: 'rydes#add'
-  post '/users/:id', to: 'rydes#finish'
   get '/rydes/active', to: 'rydes#active'
   resources :users 
   resources :rydes
