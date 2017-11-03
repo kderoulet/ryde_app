@@ -1,13 +1,3 @@
-<div class="profile-header">
-MY PROFILE
-<br>
-<%= image_tag @user.image.url, size: "150x150" %>
-<br>
-<%= @user.email %>
-<br> 
-<%= link_to 'Edit Profile', edit_user_path %>
-</div>
-<br><br>
 <div class="ryde">
 <% if @user.pilot %>
     <% Ryde.all.order("created_at DESC").each do |ryde| %> 

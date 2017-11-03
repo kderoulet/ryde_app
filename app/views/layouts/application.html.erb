@@ -14,7 +14,7 @@
   <body>
 <% if current_user %>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row blackrow">
     <div class="col col-left">
       RYDE
     </div>
@@ -22,26 +22,47 @@
       Welcome, <%= current_user.first_name %>
     </div>
   </div>
-    <div class="row">
-      <div class="col col-left">
+</div>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-4 black-line">
+    <div class="divider">
+      <div class="weird">
         <%= link_to 'Request', new_ryde_path %>
       </div>
-      <div class="col">
+      <div class="weird">
         <%= link_to 'Profile', user_path(id: current_user.id) %>
       </div>
-      <div class="col">
+      <div class="weird">
         <%= link_to 'Rydes', rydes_path %>
       </div>
-      <div class="col col-right">
+      <div class="weird">
         <%= link_to 'Logout', session_path('log_out'), method: :delete %>
       </div>
     </div>
+    <div>
+      <div class="profile-header">
+        <br>
+        <%= image_tag current_user.image.url, size: "150x150" %>
+        <br>
+        <span class="email"> <%= current_user.email %> </span>
+        <br> 
+        <%= link_to 'Edit Profile', edit_user_path(id: current_user.id) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-7">
+    <div class="container">
+      <%= yield %>
+    </div>
+  </div>
+</div>
 </div>
 <br>
-  <% end %>
-  <div class="container">
+<% else %>
+  <br><br>
     <%= yield %>
-  </div>
+<% end %>
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

@@ -21,7 +21,7 @@
  }
 
  a {
-     color: #000000;
+     color: #999999;
  }
 
  img {
@@ -72,21 +72,36 @@
     text-align: right;
 }
 
-.row {
-    border-bottom: 1px solid black;
+.blackrow {
+    background-color: black;
+    color: white;
 }
 
-@media(min-width: 768px) {
-    body {
-        font-size: 20px;
+.weird {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+.divider {
+    border-bottom: 2px solid black;
+}
+.black-line {
+    border-bottom: 2px solid black;
+}
+
+.email {
+    font-size: 0.8rem;
+}
+
+@media(min-width: 576px) {
+    .weird {
+        display: block;
+        text-align: left;  
+        margin: 1rem 2rem;  
     }
-    h1 {
-        font-size: 25px;
-    }
-    .ryde {
-        margin: 0 25%;
-    }
-    .rydes-page {
-        margin: 0 auto;
+    .black-line {
+        border-right: 2px solid black;
+        border-bottom: none;
     }
 }

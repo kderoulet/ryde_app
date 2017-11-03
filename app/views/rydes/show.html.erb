@@ -5,9 +5,9 @@
     <%= User.find(@ryde.user_id).first_name %> <%= User.find(@ryde.user_id).last_name[0] %>.
     <br>
     <div class="ryde">
-        From: <%= @ryde.starting_location %>, <%= Destination.find_by(name: @ryde.starting_location).location %>
+        From: <%= Destination.find_by(name: @ryde.starting_location).planet %>
         <br>
-        To: <%= @ryde.ending_location %>, <%= Destination.find_by(name: @ryde.ending_location).location %>
+        To: <%= Destination.find_by(name: @ryde.ending_location).planet %>
         <br>
         <%= number_to_currency((((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
         <br>
