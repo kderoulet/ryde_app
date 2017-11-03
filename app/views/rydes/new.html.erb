@@ -1,4 +1,4 @@
-<div class="new-ryde">
+<div>
 <%= form_for @ryde do |f| %>
     <h3> Where would you like to start? </h3>
     <%= f.collection_select(:starting_location, Destination.all, :name, :name, {prompt: "Select a launch site"}, {include_blank: true, required: true}) %>

@@ -1,21 +1,23 @@
-<div class="rydes-page">
-    <h1> Ryde Details </h1>
-    <%= image_tag User.find(@ryde.user_id).image.url, size: '50x50' %>
+<div>
+    <h1>Ryde Details</h1>
     <br>
+    <%= image_tag User.find(@ryde.user_id).image.url, size: '75x75' %>
     <%= User.find(@ryde.user_id).first_name %> <%= User.find(@ryde.user_id).last_name[0] %>.
     <br>
     <div class="ryde">
-        From: <%= Destination.find_by(name: @ryde.starting_location).planet %>
+        <strong>From:</strong> <%= @ryde.starting_location %>, <%= Destination.find_by(name: @ryde.starting_location).location %>
         <br>
-        To: <%= Destination.find_by(name: @ryde.ending_location).planet %>
+        <strong>To:</strong> <%= @ryde.ending_location %>, <%= Destination.find_by(name: @ryde.ending_location).location %>
         <br>
-        <%= number_to_currency((((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+        <strong>Price:</strong> <%= number_to_currency((((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
         <br>
-        <%= ((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 160).to_i %> days
+        <strong>Time:</strong> <%= ((Destination.find_by(name: @ryde.starting_location).au - Destination.find_by(name: @ryde.ending_location).au).abs * 160).to_i %> days
         <br>
-    </div> 
-    <%= form_tag ryde_path do%>
-        <%= submit_tag 'Accept' %> 
-    <% end %> 
+    </div>
+    <% if Ryde.all.where(pilot_id: current_user.id).order('updated_at DESC').first.finished %>
+        <%= form_tag ryde_path do%>
+            <%= submit_tag 'Accept' %> 
+        <% end %> 
+    <% end %>
     <%= link_to 'Back', rydes_path %>
 </div>

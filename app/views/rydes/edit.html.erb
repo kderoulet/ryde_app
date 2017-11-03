@@ -1,8 +1,12 @@
+<br>
 <%= form_for @ryde do |f| %>
+    From:
+    <br>
     <%= f.collection_select(:starting_location, Destination.all, :name, :name, {prompt: "Starting Location"}, {include_blank: true, required: true}) %>
     <br>
+    To:
+    <br>
     <%= f.collection_select(:ending_location, Destination.all, :name, :name, {prompt: "Ending Location"}, {include_blank: true, required: true}) %>
-    <br>
-    <%= f.submit 'Edit Ryde Request' %>
-    <br>
+    <br><br>
+    <%= f.submit "Edit Ryde Request" %>
 <% end %>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>RydeApp</title>
     <%= csrf_meta_tags %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -11,7 +13,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+<body>
 <% if current_user %>
 <div class="container-fluid">
   <div class="row blackrow">
@@ -28,13 +30,14 @@
   <div class="col-sm-4 black-line">
     <div class="divider">
       <div class="weird">
-        <%= link_to 'Request', new_ryde_path %>
-      </div>
-      <div class="weird">
-        <%= link_to 'Profile', user_path(id: current_user.id) %>
+        <%= link_to 'Request', new_ryde_path unless current_user.pilot %>
+        <%= link_to 'Active', rydes_active_path if current_user.pilot %>
       </div>
       <div class="weird">
         <%= link_to 'Rydes', rydes_path %>
+      </div>
+      <div class="weird">
+        <%= link_to 'History', user_path(id: current_user.id) %>
       </div>
       <div class="weird">
         <%= link_to 'Logout', session_path('log_out'), method: :delete %>
@@ -61,7 +64,7 @@
 <br>
 <% else %>
   <br><br>
-    <%= yield %>
+  <%= yield %>
 <% end %>
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"

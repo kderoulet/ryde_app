@@ -1,0 +1,23 @@
+<% if current_user.pilot %>
+    <% Ryde.all.where(pilot_id: current_user.id).each do |ryde| %>
+        <% unless ryde.finished %>
+            <div>
+                <h1>Active Ride</h1><br>
+                <%= image_tag User.find(ryde.user_id).image.url, size: '75x75' %>
+                <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
+                <br>
+                <strong>From:</strong> <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+                <br>
+                <strong>To:</strong> <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                <br>
+                <strong>Price:</strong> <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+                <br>
+                <strong>Time:</strong> <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
+                <br><br>
+                <%= form_tag users_path do%>
+                    <%= submit_tag 'Finish Ryde' %> 
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>

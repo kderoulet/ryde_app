@@ -17,7 +17,7 @@
 
  body {
     font-family: 'Varela Round', sans-serif;   
-    font-size: 20px; 
+    font-size: 1.1rem; 
  }
 
  a {
@@ -33,22 +33,13 @@
      cursor: pointer;
  }
 
+ input {
+     border: 1px solid black;
+ }
+
  .login-page {
      margin: 0 auto;
      text-align: center;
- }
-
- .new-ryde {
-     margin: 0 auto;
-     text-align: center;
- }
-
- .rydes-page {
-     text-align: center;
- }
-
- .ryde {
-     text-align: left;
  }
 
  .profile-header {
@@ -57,7 +48,7 @@
  }
 
 .btn {
-    width: 200px;
+    width: 220px;
 }
 
 .col {
@@ -79,7 +70,7 @@
 
 .weird {
     display: inline-block;
-    width: 20%;
+    width: 23.2%;
     text-align: center;
 }
 

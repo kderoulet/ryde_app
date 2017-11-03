@@ -1,33 +1,35 @@
-<div class="container-fluid rydes-page">
+<div class="container-fluid">
 <% unless current_user.pilot %>
-    <h3> MY RYDES </h3>
+    <h1>My Rydes </h1>
     <br>
     <% if current_user.rydes.length > 0 %>
         <% if current_user.rydes.order('created_at DESC').first.finished %>
             <%= link_to "<button class='btn btn-lg'>REQUEST A RYDE</button>".html_safe, new_ryde_path %>
         <% end %>
     <% else %>
-        It looks like you have no rydes! <%= link_to "Request a Ryde", new_ryde_path %>
+        It looks like you have no rydes! 
+        <br>
+        <%= link_to "<button class='btn btn-lg'>REQUEST A RYDE</button>".html_safe, new_ryde_path %>
     <% end %>
     <% @rydes.each do |ryde| %>
         <% if ryde.user_id == current_user.id %>
         <div>
             <% if ryde.pilot_id %>
                 <br>
-                <%= image_tag User.find(ryde.pilot_id).image.url, size: '50x50' %>
+                <%= image_tag User.find(ryde.pilot_id).image.url, size: '75x75' %>
                 <br>
                 <%= User.find(ryde.pilot_id).first_name %>
                 <%= User.find(ryde.pilot_id).last_name[0] %>. accepted this ryde.
                 <br>
             <% end %>
-            <div class="ryde">
-                From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+            <div>
+                <strong>From:</strong> <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
                 <br>
-                To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                <strong>To:</strong> <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
                 <br>
-                <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
+                <strong>Price:</strong> <%= number_to_currency((((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 10998213) + 6000000).to_d) %>
                 <br>
-                <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
+                <strong>Time:</strong> <%= ((Destination.find_by(name: ryde.starting_location).au - Destination.find_by(name: ryde.ending_location).au).abs * 160).to_i %> days
                 <br>
                 <% unless ryde.finished %>
                     <%= link_to "Edit", edit_ryde_path(id: ryde.id) %> 
@@ -41,22 +43,21 @@
         <% end %>
     <% end %>
 <% else %> 
-    <h1> Available Rydes </h1>
+    <h1>Available Rydes</h1>
     <br>
     <% @rydes.each do |ryde| %>
         <% unless ryde.pilot_id %>
             <div>
-                <%= image_tag User.find(ryde.user_id).image.url, size: '50x50' %>
-                <br>
+                <%= image_tag User.find(ryde.user_id).image.url, size: '75x75' %>
                 <%= User.find(ryde.user_id).first_name %>&nbsp;<%= User.find(ryde.user_id).last_name[0] %>.
                 <br>
-                <div class="ryde">
-                    From: <%= ryde.starting_location %>, <%= Destination.find_by(name: ryde.starting_location).location %>
+                <div>
+                    <strong>From:</strong> <%= ryde.starting_location %>
                     <br>
-                    To: <%= ryde.ending_location %>, <%= Destination.find_by(name: ryde.ending_location).location %>
+                    <strong>To:</strong> <%= ryde.ending_location %>
                     <br>
                     <%= link_to "View Ryde", ryde_path(id: ryde.id) %>
-                </div class="ryde">
+                </div>
             </div>
         <% end %>
     <% end %>

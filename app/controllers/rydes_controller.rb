@@ -43,6 +43,9 @@ class RydesController < ApplicationController
         redirect_to rydes_path
     end
 
+    def active 
+    end
+
     def add
         @ryde = Ryde.find(params[:id])
         if @ryde.update_attributes(pilot_id: current_user.id)
